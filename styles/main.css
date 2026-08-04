@@ -104,6 +104,11 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
+.header-title {
+    display: flex;
+    flex-direction: column;
+}
+
 .header-title h1 {
     font-size: 1.5rem;
     font-weight: 700;
@@ -147,8 +152,66 @@ body {
 }
 
 @media (max-width: 768px) {
+    .app-header {
+        position: relative;
+        padding: 0.75rem 1rem;
+        flex-direction: column;
+        gap: 0.6rem;
+        align-items: flex-start;
+    }
+    
+    .header-controls {
+        flex-direction: column;
+        gap: 0.6rem;
+        width: 100%;
+        align-items: stretch;
+    }
+
+    #theme-toggle {
+        position: absolute;
+        top: 0.85rem;
+        right: 1rem;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: unset;
+    }
+
+    #theme-toggle span {
+        display: none;
+    }
+
+    .header-stats {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .header-title h1 {
+        font-size: 1.15rem;
+        text-align: left;
+    }
+    
+    .header-title p {
+        font-size: 0.75rem;
+        text-align: left;
+        margin-top: 0.1rem;
+    }
+
     .main-container {
         flex-direction: column;
         padding: 1rem;
+        gap: 1rem;
+    }
+
+    #reset-btn {
+        padding: 0.3rem 0.4rem;
+        font-size: 0.75rem;
+        flex-shrink: 0;
+        max-width: 100px;
+        white-space: nowrap;
     }
 }
