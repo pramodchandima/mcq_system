@@ -1,4 +1,4 @@
-import { questions, questionsL5, questionsL4, questionsL41, questionsL32, questionsL3 } from './data/questions.js';
+import { questions, questionsL5, questionsL4, questionsL41, questionsL32, questionsL3, questionsL2, questionsL1 } from './data/questions.js';
 import { saveProgress, loadProgress, clearProgress } from './utils/storage.js';
 import { Sidebar } from './components/Sidebar.js';
 import { QuizRenderer } from './components/QuizRenderer.js';
@@ -7,6 +7,18 @@ import { LandingScreen } from './components/LandingScreen.js';
 
 // Mocking quiz sets
 const quizSets = [
+    {
+        id: 'set-rad-l1',
+        title: 'Rapid Application Development',
+        description: 'Lesson 01: Introduction to RAD',
+        questions: questionsL1
+    },
+    {
+        id: 'set-rad-l2',
+        title: 'Rapid Application Development',
+        description: 'Lesson 02: Maven for Application Management',
+        questions: questionsL2
+    },
     {
         id: 'set-rad-l3',
         title: 'Rapid Application Development',
