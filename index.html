@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCQ Practice System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-title">
+            <h1>MCQ Practice</h1>
+            <p>Master your concepts</p>
+        </div>
+        <div class="header-stats">
+            <div class="score-badge" id="global-score-badge">
+                <span>Score:</span> <span class="score-val" id="global-score">0/0</span>
+            </div>
+            <button id="reset-btn" class="btn btn-secondary btn-small">Reset Progress</button>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <aside class="sidebar" id="sidebar-container">
+            <!-- Sidebar injected here via JS -->
+        </aside>
+
+        <section class="content-area" id="main-content-area">
+            <!-- Questions or Results injected here via JS -->
+        </section>
+    </main>
+
+    <!-- Custom Reset Confirmation Modal -->
+    <div class="modal-overlay" id="confirm-modal">
+        <div class="modal-content">
+            <h3 class="modal-title">Reset Progress?</h3>
+            <p class="modal-text">Are you sure you want to reset your progress? All your marks and saved answers will be permanently lost.</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="modal-cancel-btn">Cancel</button>
+                <button class="btn btn-primary btn-danger" id="modal-confirm-btn">Yes, Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modules need to be imported via type="module" -->
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

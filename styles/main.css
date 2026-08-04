@@ -1,0 +1,102 @@
+:root {
+    --bg-color: #0b0c10;
+    --surface-color: rgba(26, 27, 38, 0.65);
+    --surface-border: rgba(255, 255, 255, 0.08);
+    --accent-primary: #8b5cf6;
+    --accent-primary-hover: #7c3aed;
+    --accent-primary-glow: rgba(139, 92, 246, 0.4);
+    --accent-secondary: #3b82f6;
+    --text-main: #f3f4f6;
+    --text-muted: #9ca3af;
+    --color-success: #10b981;
+    --color-success-bg: rgba(16, 185, 129, 0.15);
+    --color-error: #ef4444;
+    --color-error-bg: rgba(239, 68, 68, 0.15);
+    --font-main: 'Outfit', sans-serif;
+    --font-code: 'Fira Code', monospace;
+    --card-radius: 16px;
+    --transition-speed: 0.3s;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    background-image: 
+        radial-gradient(at 10% 20%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
+        radial-gradient(at 90% 80%, rgba(59, 130, 246, 0.15) 0px, transparent 50%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    font-family: var(--font-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
+
+.app-header {
+    background: rgba(15, 16, 22, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--surface-border);
+    padding: 1.25rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-title h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #fff 30%, #a78bfa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.header-title p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+}
+
+.header-stats {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.main-container {
+    display: flex;
+    flex: 1;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem;
+    gap: 2rem;
+}
+
+.content-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-width: 0;
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+        padding: 1rem;
+    }
+}
