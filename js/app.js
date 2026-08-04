@@ -32,7 +32,8 @@ const elements = {
     modal: document.getElementById('confirm-modal'),
     modalConfirmBtn: document.getElementById('modal-confirm-btn'),
     modalCancelBtn: document.getElementById('modal-cancel-btn'),
-    appHeaderStats: document.querySelector('.header-stats')
+    appHeaderStats: document.querySelector('.header-stats'),
+    headerTitle: document.querySelector('.header-title')
 };
 
 const init = () => {
@@ -65,7 +66,7 @@ const init = () => {
              state.currentIndex = savedData.currentIndex || 0;
         } else {
              state = { ...state, ...savedData };
-        }
+         }
         // Always start at landing view by default
         state.view = 'landing'; 
     }
@@ -83,12 +84,15 @@ const init = () => {
         handleReset();
     });
 
-    elements.homeBtn.addEventListener('click', () => {
+    const goHome = () => {
         state.view = 'landing';
         saveProgress(state);
         render();
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    };
+
+    elements.homeBtn.addEventListener('click', goHome);
+    elements.headerTitle.addEventListener('click', goHome);
     
     render();
 };

@@ -107,6 +107,8 @@ body {
 .header-title {
     display: flex;
     flex-direction: column;
+    cursor: pointer;
+    user-select: none;
 }
 
 .header-title h1 {
