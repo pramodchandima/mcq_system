@@ -1,0 +1,34 @@
+# Environment variables
+.env
+
+# Lecture notes and raw resources
+Resources/
+
+# Node modules
+node_modules/
+
+# Utility scripts
+update_questions.js
+obfuscate.js
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE / Editor folders
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+

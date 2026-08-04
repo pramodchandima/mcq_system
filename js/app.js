@@ -1,4 +1,4 @@
-import { questions } from './data/questions.js';
+import { questions, questionsL5, questionsL4, questionsL41, questionsL32, questionsL3 } from './data/questions.js';
 import { saveProgress, loadProgress, clearProgress } from './utils/storage.js';
 import { Sidebar } from './components/Sidebar.js';
 import { QuizRenderer } from './components/QuizRenderer.js';
@@ -7,6 +7,36 @@ import { LandingScreen } from './components/LandingScreen.js';
 
 // Mocking quiz sets
 const quizSets = [
+    {
+        id: 'set-rad-l3',
+        title: 'Rapid Application Development',
+        description: 'Lesson 03: Graphical User Interface Development',
+        questions: questionsL3
+    },
+    {
+        id: 'set-rad-l3-2',
+        title: 'Rapid Application Development',
+        description: 'Lesson 03 (II): Graphical User Interface Development (Data Driven Apps)',
+        questions: questionsL32
+    },
+    {
+        id: 'set-rad-l4-1',
+        title: 'Rapid Application Development',
+        description: 'Lesson 04 (I): Web Technologies for Rapid Development (Servlets)',
+        questions: questionsL41
+    },
+    {
+        id: 'set-rad-l4',
+        title: 'Rapid Application Development',
+        description: 'Lesson 04 (II): Web Technologies for Rapid Development (JSP)',
+        questions: questionsL4
+    },
+    {
+        id: 'set-rad-l5',
+        title: 'Rapid Application Development',
+        description: 'Lesson 05: Developing Localized Applications',
+        questions: questionsL5
+    },
     {
         id: 'set-rad-l6',
         title: 'Rapid Application Development',
