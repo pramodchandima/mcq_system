@@ -423,6 +423,71 @@
     animation: fadeIn var(--transition-speed) ease-out;
 }
 
+.landing-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface-color);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--card-radius);
+    padding: 1.5rem 2rem;
+    gap: 1.5rem;
+    overflow: hidden;
+}
+
+.landing-hero-content {
+    flex: 1;
+}
+
+.landing-hero-content h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+    line-height: 1.25;
+}
+
+.landing-hero-content p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.landing-hero-image {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.mascot-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--surface-border);
+    padding: 0.4rem;
+}
+
+[data-theme="light"] .mascot-img {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+@media (max-width: 768px) {
+    .landing-hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.25rem;
+    }
+    .landing-hero-image {
+        width: 90px;
+        height: 90px;
+    }
+}
+
 .landing-header {
     text-align: center;
     margin-bottom: 1rem;
@@ -501,54 +566,66 @@
 [data-theme="light"] .quiz-set-info h3 {
     color: var(--text-main);
 }
+
 [data-theme="light"] .landing-header h2 {
     color: var(--text-main);
     background: none;
     -webkit-text-fill-color: initial;
 }
+
 [data-theme="light"] .nav-grid-item.active {
     border: 2px solid var(--accent-primary);
     background: rgba(0, 0, 0, 0.06);
     color: var(--text-main);
 }
+
 [data-theme="light"] .btn-secondary {
     background: rgba(9, 9, 11, 0.04);
     border: 1px solid rgba(9, 9, 11, 0.08);
     color: var(--text-main);
 }
+
 [data-theme="light"] .btn-secondary:hover:not(:disabled) {
     background: rgba(9, 9, 11, 0.1);
     border-color: rgba(9, 9, 11, 0.3);
     color: #000000;
 }
+
 [data-theme="light"] .option-btn {
     background: rgba(9, 9, 11, 0.03);
     border-color: rgba(9, 9, 11, 0.08);
 }
+
 [data-theme="light"] .option-btn:hover:not(:disabled) {
     background: rgba(9, 9, 11, 0.06);
     border-color: rgba(9, 9, 11, 0.25);
     box-shadow: 0 4px 15px rgba(9, 9, 11, 0.03);
 }
+
 [data-theme="light"] .option-btn.selected {
     border-color: var(--accent-primary);
     background: rgba(9, 9, 11, 0.08);
 }
+
 [data-theme="light"] .option-letter {
     background: rgba(9, 9, 11, 0.03);
     border: 1px solid rgba(9, 9, 11, 0.1);
     color: var(--text-main);
 }
+
 [data-theme="light"] .explanation-box {
     background: rgba(9, 9, 11, 0.02);
     border: 1px solid rgba(9, 9, 11, 0.08);
 }
+
 [data-theme="light"] .modal-overlay {
     background: rgba(0, 0, 0, 0.4);
 }
+
 [data-theme="light"] .modal-title {
     color: var(--text-main);
 }
+
 [data-theme="light"] .sidebar-card {
     background: #d4d4d8;
     border-color: rgba(9, 9, 11, 0.12);

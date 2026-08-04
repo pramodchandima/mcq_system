@@ -21,7 +21,7 @@
 
 [data-theme="light"] {
     --bg-color: #e4e4e7;
-    --surface-color: #fafafa;
+    --surface-color: #d4d4d8;
     --surface-border: rgba(9, 9, 11, 0.06);
     --accent-primary: #18181b;
     --accent-primary-hover: #27272a;
@@ -86,8 +86,7 @@ body {
 }
 
 .app-header {
-    background: rgba(15, 16, 22, 0.8);
-    backdrop-filter: blur(12px);
+    background: #121214;
     border-bottom: 1px solid var(--surface-border);
     padding: 1.25rem 2rem;
     position: sticky;
@@ -96,10 +95,13 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 [data-theme="light"] .app-header {
-    background: rgba(228, 228, 231, 0.8);
+    background: #d4d4d8;
+    border-bottom-color: rgba(9, 9, 11, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 .header-title h1 {

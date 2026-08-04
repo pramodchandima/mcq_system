@@ -37,20 +37,23 @@ const elements = {
 
 const init = () => {
     // Theme setup
+    const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="theme-icon"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg><span>Light Mode</span>`;
+    const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="theme-icon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span>Dark Mode</span>`;
+
     const savedTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
-    elements.themeToggle.textContent = savedTheme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
+    elements.themeToggle.innerHTML = savedTheme === 'light' ? moonIcon : sunIcon;
 
     elements.themeToggle.addEventListener('click', () => {
         const theme = document.documentElement.getAttribute('data-theme');
         if (theme === 'light') {
             document.documentElement.setAttribute('data-theme', 'dark');
             localStorage.setItem('theme', 'dark');
-            elements.themeToggle.textContent = '☀️ Light Mode';
+            elements.themeToggle.innerHTML = sunIcon;
         } else {
             document.documentElement.setAttribute('data-theme', 'light');
             localStorage.setItem('theme', 'light');
-            elements.themeToggle.textContent = '🌙 Dark Mode';
+            elements.themeToggle.innerHTML = moonIcon;
         }
     });
 
