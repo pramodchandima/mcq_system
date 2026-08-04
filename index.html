@@ -11,47 +11,17 @@
     <link rel="stylesheet" href="styles/components.css">
 </head>
 <body>
-    <header class="app-header">
-        <div class="header-title">
-            <h1>MCQ Practice</h1>
-            <p>Master your concepts</p>
-        </div>
-        <div class="header-controls">
-            <button id="theme-toggle" class="btn btn-secondary btn-small">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="theme-icon"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-                <span>Light Mode</span>
-            </button>
-            <div class="header-stats">
-                <button id="home-btn" class="btn btn-secondary btn-small">Home</button>
-                <button id="reset-btn" class="btn btn-secondary btn-small">Reset Progress</button>
-                <div class="score-badge" id="global-score-badge">
-                    <span>Score:</span> <span class="score-val" id="global-score">0/0</span>
-                </div>
-            </div>
-        </div>
-    </header>
+    <div id="header-container"></div>
 
     <main class="main-container">
-        <aside class="sidebar" id="sidebar-container">
-            <!-- Sidebar injected here via JS -->
-        </aside>
+        <aside class="sidebar" id="sidebar-container"></aside>
 
         <section class="content-area" id="main-content-area">
-            <!-- Questions or Results injected here via JS -->
+            <!-- Landing, Quiz, or Results injected here via JS -->
         </section>
     </main>
 
-    <!-- Custom Reset Confirmation Modal -->
-    <div class="modal-overlay" id="confirm-modal">
-        <div class="modal-content">
-            <h3 class="modal-title">Reset Progress?</h3>
-            <p class="modal-text">Are you sure you want to reset your progress? All your marks and saved answers will be permanently lost.</p>
-            <div class="modal-actions">
-                <button class="btn btn-secondary" id="modal-cancel-btn">Cancel</button>
-                <button class="btn btn-primary btn-danger" id="modal-confirm-btn">Yes, Reset</button>
-            </div>
-        </div>
-    </div>
+    <div id="modal-container"></div>
 
     <!-- Modules need to be imported via type="module" -->
     <script type="module" src="js/app.js"></script>

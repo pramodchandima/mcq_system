@@ -1,262 +1,126 @@
-import { questions, questionsL5, questionsL4, questionsL41, questionsL32, questionsL3, questionsL2, questionsL1 } from './data/questions.js';
-import { saveProgress, loadProgress, clearProgress } from './utils/storage.js';
+import { store } from './core/Store.js';
+import { AppHeader } from './components/Header.js';
+import { ConfirmModal } from './components/ConfirmModal.js';
 import { Sidebar } from './components/Sidebar.js';
+import { LandingScreen } from './components/LandingScreen.js';
 import { QuizRenderer } from './components/QuizRenderer.js';
 import { ResultScreen } from './components/ResultScreen.js';
-import { LandingScreen } from './components/LandingScreen.js';
+import { 
+    questionsL1 as questions_rad_l1,
+    questionsL2 as questions_rad_l2,
+    questionsL3 as questions_rad_l3,
+    questionsL32 as questions_rad_l3_part2,
+    questionsL4 as questions_rad_l4,
+    questionsL41 as questions_rad_l4_part2,
+    questionsL5 as questions_rad_l5,
+    questions as questions_rad_l6
+} from './data/questions.js';
 
-// Mocking quiz sets
-const quizSets = [
+// Aggregate quiz sets
+export const quizSets = [
     {
         id: 'set-rad-l1',
-        title: 'Rapid Application Development',
-        description: 'Lesson 01: Introduction to RAD',
-        questions: questionsL1
+        title: 'RAD - L1: Introduction',
+        description: 'Introduction to Rapid Application Development',
+        questions: questions_rad_l1
     },
     {
         id: 'set-rad-l2',
-        title: 'Rapid Application Development',
-        description: 'Lesson 02: Maven for Application Management',
-        questions: questionsL2
+        title: 'RAD - L2: SDLC',
+        description: 'Software Development Life Cycle',
+        questions: questions_rad_l2
     },
     {
         id: 'set-rad-l3',
-        title: 'Rapid Application Development',
-        description: 'Lesson 03: Graphical User Interface Development',
-        questions: questionsL3
+        title: 'RAD - L3: Requirements',
+        description: 'Requirements Engineering',
+        questions: questions_rad_l3
     },
     {
-        id: 'set-rad-l3-2',
-        title: 'Rapid Application Development',
-        description: 'Lesson 03 (II): Graphical User Interface Development (Data Driven Apps)',
-        questions: questionsL32
-    },
-    {
-        id: 'set-rad-l4-1',
-        title: 'Rapid Application Development',
-        description: 'Lesson 04 (I): Web Technologies for Rapid Development (Servlets)',
-        questions: questionsL41
+        id: 'set-rad-l3-part2',
+        title: 'RAD - L3: Req Eng Part 2',
+        description: 'Requirements Elicitation & Analysis',
+        questions: questions_rad_l3_part2
     },
     {
         id: 'set-rad-l4',
-        title: 'Rapid Application Development',
-        description: 'Lesson 04 (II): Web Technologies for Rapid Development (JSP)',
-        questions: questionsL4
+        title: 'RAD - L4: Analysis & Design',
+        description: 'System Analysis and Design Concepts',
+        questions: questions_rad_l4
+    },
+    {
+        id: 'set-rad-l4-part2',
+        title: 'RAD - L4: OOAD',
+        description: 'Object-Oriented Analysis and Design',
+        questions: questions_rad_l4_part2
     },
     {
         id: 'set-rad-l5',
-        title: 'Rapid Application Development',
-        description: 'Lesson 05: Developing Localized Applications',
-        questions: questionsL5
+        title: 'RAD - L5: Architecture',
+        description: 'Software Architecture and Design Patterns',
+        questions: questions_rad_l5
     },
     {
         id: 'set-rad-l6',
-        title: 'Rapid Application Development',
-        description: 'Lesson 06: Considerations on Developing Rapid Applications (Security & Quality)',
-        questions: questions
+        title: 'RAD - L6: User Interface',
+        description: 'UI Design Principles and Best Practices',
+        questions: questions_rad_l6
     }
 ];
 
-let state = {
-    view: 'landing', // 'landing' or 'quiz'
-    activeSetId: null,
-    currentIndex: 0,
-    answers: {}, // { "set-rad-l6": { "q1": { selectedIndex: 1, isCorrect: false }, ... } }
-};
-
-const elements = {
-    sidebarContainer: document.getElementById('sidebar-container'),
-    mainContentArea: document.getElementById('main-content-area'),
-    globalScore: document.getElementById('global-score'),
-    resetBtn: document.getElementById('reset-btn'),
-    homeBtn: document.getElementById('home-btn'),
-    themeToggle: document.getElementById('theme-toggle'),
-    modal: document.getElementById('confirm-modal'),
-    modalConfirmBtn: document.getElementById('modal-confirm-btn'),
-    modalCancelBtn: document.getElementById('modal-cancel-btn'),
-    appHeaderStats: document.querySelector('.header-stats'),
-    headerTitle: document.querySelector('.header-title')
-};
-
-const init = () => {
-    // Theme setup
-    const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="theme-icon"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg><span>Light Mode</span>`;
-    const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="theme-icon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span>Dark Mode</span>`;
-
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    elements.themeToggle.innerHTML = savedTheme === 'light' ? moonIcon : sunIcon;
-
-    elements.themeToggle.addEventListener('click', () => {
-        const theme = document.documentElement.getAttribute('data-theme');
-        if (theme === 'light') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-            elements.themeToggle.innerHTML = sunIcon;
-        } else {
-            document.documentElement.setAttribute('data-theme', 'light');
-            localStorage.setItem('theme', 'light');
-            elements.themeToggle.innerHTML = moonIcon;
-        }
-    });
-
-    const savedData = loadProgress();
-    if (savedData) {
-        // Migration check from old state format
-        if (savedData.answers && !savedData.answers['set-rad-l6'] && Object.keys(savedData.answers).length > 0) {
-             state.answers = { 'set-rad-l6': savedData.answers };
-             state.currentIndex = savedData.currentIndex || 0;
-        } else {
-             state = { ...state, ...savedData };
-         }
-        // Always start at landing view by default
-        state.view = 'landing'; 
+class App {
+    constructor() {
+        this.currentViewInstance = null;
+        this.init();
     }
 
-    elements.resetBtn.addEventListener('click', () => {
-        elements.modal.classList.add('show');
-    });
-
-    elements.modalCancelBtn.addEventListener('click', () => {
-        elements.modal.classList.remove('show');
-    });
-
-    elements.modalConfirmBtn.addEventListener('click', () => {
-        elements.modal.classList.remove('show');
-        handleReset();
-    });
-
-    const goHome = () => {
-        state.view = 'landing';
-        saveProgress(state);
-        render();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
-    elements.homeBtn.addEventListener('click', goHome);
-    elements.headerTitle.addEventListener('click', goHome);
-    
-    render();
-};
-
-const calculateScore = (setId) => {
-    let score = 0;
-    const setAnswers = state.answers[setId] || {};
-    for (let key in setAnswers) {
-        if (setAnswers[key].isCorrect) score++;
-    }
-    return score;
-};
-
-const getActiveQuestions = () => {
-    const set = quizSets.find(s => s.id === state.activeSetId);
-    return set ? set.questions : [];
-};
-
-const render = () => {
-    if (state.view === 'landing') {
-        elements.sidebarContainer.style.display = 'none';
-        elements.appHeaderStats.style.display = 'none'; 
-        elements.mainContentArea.innerHTML = LandingScreen(quizSets);
+    init() {
+        // Initialize permanent components
+        new AppHeader('header-container', quizSets);
+        new ConfirmModal('modal-container');
         
-        const startBtns = document.querySelectorAll('.start-quiz-btn');
-        startBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const setId = e.currentTarget.getAttribute('data-set-id');
-                state.activeSetId = setId;
-                state.view = 'quiz';
-                
-                // Reset index if we finished it previously
-                const activeQ = getActiveQuestions();
-                if (state.currentIndex >= activeQ.length) {
-                    state.currentIndex = 0;
-                }
-                saveProgress(state);
-                render();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        });
-        return;
-    }
+        const sidebar = new Sidebar('sidebar-container', quizSets);
+        sidebar.mount();
 
-    // Quiz View
-    elements.sidebarContainer.style.display = 'flex';
-    elements.appHeaderStats.style.display = 'flex';
-    
-    const activeQuestions = getActiveQuestions();
-    const currentScore = calculateScore(state.activeSetId);
-    elements.globalScore.textContent = `${currentScore}/${activeQuestions.length}`;
-
-    const setAnswers = state.answers[state.activeSetId] || {};
-
-    // Render Sidebar
-    elements.sidebarContainer.innerHTML = Sidebar(activeQuestions, state.currentIndex, setAnswers);
-    
-    const navItems = document.querySelectorAll('.nav-item');
-    navItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-            const index = parseInt(e.currentTarget.getAttribute('data-index'));
-            state.currentIndex = index;
-            saveProgress(state);
-            render();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    });
-
-    // Render Quiz Content
-    if (state.currentIndex >= activeQuestions.length) {
-        elements.mainContentArea.innerHTML = ResultScreen(currentScore, activeQuestions.length);
-        const restartBtn = document.getElementById('restart-btn');
-        if (restartBtn) {
-            restartBtn.addEventListener('click', () => {
-                state.currentIndex = 0;
-                state.view = 'landing';
-                saveProgress(state);
-                render();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        }
-    } else {
-        const currentQuestion = activeQuestions[state.currentIndex];
-        const answerRecord = setAnswers[currentQuestion.id];
+        // Subscribe to view changes
+        store.subscribe((state) => this.handleViewChange(state));
         
-        elements.mainContentArea.innerHTML = QuizRenderer(currentQuestion, answerRecord);
+        // Initial render
+        this.handleViewChange(store.getState());
+    }
 
-        // Attach Events
-        const optionBtns = document.querySelectorAll('.option-btn');
-        optionBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                if (setAnswers[currentQuestion.id]) return; 
-                
-                const selectedIndex = parseInt(e.currentTarget.getAttribute('data-option-index'));
-                const isCorrect = selectedIndex === currentQuestion.correctAnswerIndex;
-                
-                if(!state.answers[state.activeSetId]) {
-                    state.answers[state.activeSetId] = {};
-                }
-                state.answers[state.activeSetId][currentQuestion.id] = { selectedIndex, isCorrect };
-                saveProgress(state);
-                render();
-            });
-        });
+    handleViewChange(state) {
+        const view = state.view;
+        
+        // If view didn't change, do nothing at the App router level
+        if (this.currentViewName === view) return;
+        this.currentViewName = view;
 
-        const nextBtn = document.getElementById('next-btn');
-        if (nextBtn) {
-            nextBtn.addEventListener('click', () => {
-                state.currentIndex++;
-                saveProgress(state);
-                render();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
+        // Unmount current view
+        if (this.currentViewInstance && typeof this.currentViewInstance.unmount === 'function') {
+            this.currentViewInstance.unmount();
+        }
+
+        // Mount new view
+        switch (view) {
+            case 'landing':
+                this.currentViewInstance = new LandingScreen('main-content-area', quizSets);
+                break;
+            case 'quiz':
+                this.currentViewInstance = new QuizRenderer('main-content-area', quizSets);
+                break;
+            case 'result':
+                this.currentViewInstance = new ResultScreen('main-content-area', quizSets);
+                break;
+        }
+
+        if (this.currentViewInstance && typeof this.currentViewInstance.mount === 'function') {
+            this.currentViewInstance.mount();
         }
     }
-};
+}
 
-const handleReset = () => {
-    clearProgress();
-    state = { view: 'landing', activeSetId: null, currentIndex: 0, answers: {} };
-    render();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-};
-
-document.addEventListener('DOMContentLoaded', init);
+// Bootstrap app
+document.addEventListener('DOMContentLoaded', () => {
+    new App();
+});
