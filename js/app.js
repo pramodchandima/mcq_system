@@ -27,6 +27,7 @@ const elements = {
     mainContentArea: document.getElementById('main-content-area'),
     globalScore: document.getElementById('global-score'),
     resetBtn: document.getElementById('reset-btn'),
+    homeBtn: document.getElementById('home-btn'),
     modal: document.getElementById('confirm-modal'),
     modalConfirmBtn: document.getElementById('modal-confirm-btn'),
     modalCancelBtn: document.getElementById('modal-cancel-btn'),
@@ -58,6 +59,13 @@ const init = () => {
     elements.modalConfirmBtn.addEventListener('click', () => {
         elements.modal.classList.remove('show');
         handleReset();
+    });
+
+    elements.homeBtn.addEventListener('click', () => {
+        state.view = 'landing';
+        saveProgress(state);
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     
     render();
