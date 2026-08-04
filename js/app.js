@@ -28,6 +28,7 @@ const elements = {
     globalScore: document.getElementById('global-score'),
     resetBtn: document.getElementById('reset-btn'),
     homeBtn: document.getElementById('home-btn'),
+    themeToggle: document.getElementById('theme-toggle'),
     modal: document.getElementById('confirm-modal'),
     modalConfirmBtn: document.getElementById('modal-confirm-btn'),
     modalCancelBtn: document.getElementById('modal-cancel-btn'),
@@ -35,6 +36,24 @@ const elements = {
 };
 
 const init = () => {
+    // Theme setup
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    elements.themeToggle.textContent = savedTheme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
+
+    elements.themeToggle.addEventListener('click', () => {
+        const theme = document.documentElement.getAttribute('data-theme');
+        if (theme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            elements.themeToggle.textContent = '☀️ Light Mode';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+            elements.themeToggle.textContent = '🌙 Dark Mode';
+        }
+    });
+
     const savedData = loadProgress();
     if (savedData) {
         // Migration check from old state format

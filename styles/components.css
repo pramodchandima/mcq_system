@@ -25,7 +25,7 @@
     font-size: 1.1rem;
     margin-bottom: 1rem;
     font-weight: 600;
-    color: #fff;
+    color: var(--text-main);
     border-bottom: 1px solid var(--surface-border);
     padding-bottom: 0.5rem;
 }
@@ -58,21 +58,24 @@
 }
 
 .nav-grid-item.active {
-    border-color: var(--accent-primary);
+    border: 2px solid var(--accent-primary);
     background: rgba(255, 255, 255, 0.06);
-    color: #fff;
+    color: var(--text-main);
+    font-weight: 800;
 }
 
 .nav-grid-item.correct {
     background: var(--color-success-bg);
-    border-color: var(--color-success);
+    border: 2px solid var(--color-success);
     color: var(--color-success);
+    font-weight: 800;
 }
 
 .nav-grid-item.incorrect {
     background: var(--color-error-bg);
-    border-color: var(--color-error);
+    border: 2px solid var(--color-error);
     color: var(--color-error);
+    font-weight: 800;
 }
 
 /* Quiz Card */
@@ -109,7 +112,7 @@
 .question-title {
     font-size: 1.3rem;
     font-weight: 600;
-    color: #fff;
+    color: var(--text-main);
     line-height: 1.4;
     margin-bottom: 0.5rem;
 }
@@ -169,7 +172,8 @@
 }
 
 .option-letter {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--surface-border);
     width: 28px;
     height: 28px;
     display: inline-flex;
@@ -242,19 +246,15 @@
 }
 
 .btn-primary {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.05);
+    background: var(--accent-primary);
+    color: var(--btn-primary-text);
+    border: 1px solid transparent;
 }
 
 .btn-primary:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.25);
-    border-color: rgba(255, 255, 255, 0.4);
-    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15);
+    background: var(--accent-primary-hover);
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--accent-primary-glow);
 }
 
 .btn-secondary {
@@ -495,4 +495,61 @@
 .start-quiz-btn {
     width: 100%;
     justify-content: center;
+}
+
+/* Light Mode Component Overrides */
+[data-theme="light"] .quiz-set-info h3 {
+    color: var(--text-main);
+}
+[data-theme="light"] .landing-header h2 {
+    color: var(--text-main);
+    background: none;
+    -webkit-text-fill-color: initial;
+}
+[data-theme="light"] .nav-grid-item.active {
+    border: 2px solid var(--accent-primary);
+    background: rgba(0, 0, 0, 0.06);
+    color: var(--text-main);
+}
+[data-theme="light"] .btn-secondary {
+    background: rgba(9, 9, 11, 0.04);
+    border: 1px solid rgba(9, 9, 11, 0.08);
+    color: var(--text-main);
+}
+[data-theme="light"] .btn-secondary:hover:not(:disabled) {
+    background: rgba(9, 9, 11, 0.1);
+    border-color: rgba(9, 9, 11, 0.3);
+    color: #000000;
+}
+[data-theme="light"] .option-btn {
+    background: rgba(9, 9, 11, 0.03);
+    border-color: rgba(9, 9, 11, 0.08);
+}
+[data-theme="light"] .option-btn:hover:not(:disabled) {
+    background: rgba(9, 9, 11, 0.06);
+    border-color: rgba(9, 9, 11, 0.25);
+    box-shadow: 0 4px 15px rgba(9, 9, 11, 0.03);
+}
+[data-theme="light"] .option-btn.selected {
+    border-color: var(--accent-primary);
+    background: rgba(9, 9, 11, 0.08);
+}
+[data-theme="light"] .option-letter {
+    background: rgba(9, 9, 11, 0.03);
+    border: 1px solid rgba(9, 9, 11, 0.1);
+    color: var(--text-main);
+}
+[data-theme="light"] .explanation-box {
+    background: rgba(9, 9, 11, 0.02);
+    border: 1px solid rgba(9, 9, 11, 0.08);
+}
+[data-theme="light"] .modal-overlay {
+    background: rgba(0, 0, 0, 0.4);
+}
+[data-theme="light"] .modal-title {
+    color: var(--text-main);
+}
+[data-theme="light"] .sidebar-card {
+    background: #d4d4d8;
+    border-color: rgba(9, 9, 11, 0.12);
 }

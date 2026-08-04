@@ -16,6 +16,24 @@
     --font-code: 'Fira Code', monospace;
     --card-radius: 12px;
     --transition-speed: 0.2s;
+    --btn-primary-text: #000000;
+}
+
+[data-theme="light"] {
+    --bg-color: #e4e4e7;
+    --surface-color: #fafafa;
+    --surface-border: rgba(9, 9, 11, 0.06);
+    --accent-primary: #18181b;
+    --accent-primary-hover: #27272a;
+    --accent-primary-glow: rgba(24, 24, 27, 0.1);
+    --accent-secondary: #52525b;
+    --text-main: #18181b;
+    --text-muted: #71717a;
+    --color-success: #10b981;
+    --color-success-bg: rgba(16, 185, 129, 0.08);
+    --color-error: #ef4444;
+    --color-error-bg: rgba(239, 68, 68, 0.08);
+    --btn-primary-text: #ffffff;
 }
 
 * {
@@ -26,7 +44,7 @@
 
 body {
     background-color: var(--bg-color);
-    background-image: 
+    background-image:
         radial-gradient(at 50% 0%, rgba(255, 255, 255, 0.03) 0px, transparent 50%);
     background-attachment: fixed;
     color: var(--text-main);
@@ -37,11 +55,35 @@ body {
     flex-direction: column;
 }
 
+[data-theme="light"] body {
+    background-image: radial-gradient(at 50% 0%, rgba(9, 9, 11, 0.02) 0px, transparent 50%);
+}
+
 /* Scrollbar */
-::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); }
-::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-primary);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.02);
+}
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+}
 
 .app-header {
     background: rgba(15, 16, 22, 0.8);
@@ -56,18 +98,26 @@ body {
     align-items: center;
 }
 
+[data-theme="light"] .app-header {
+    background: rgba(228, 228, 231, 0.8);
+}
+
 .header-title h1 {
     font-size: 1.5rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #fff 30%, var(--accent-secondary) 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--text-main);
 }
+
 .header-title p {
     font-size: 0.85rem;
     color: var(--text-muted);
     margin-top: 0.2rem;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 .header-stats {
