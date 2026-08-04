@@ -1,21 +1,21 @@
 :root {
-    --bg-color: #0b0c10;
-    --surface-color: rgba(26, 27, 38, 0.65);
+    --bg-color: #09090b;
+    --surface-color: #18181b;
     --surface-border: rgba(255, 255, 255, 0.08);
-    --accent-primary: #8b5cf6;
-    --accent-primary-hover: #7c3aed;
-    --accent-primary-glow: rgba(139, 92, 246, 0.4);
-    --accent-secondary: #3b82f6;
-    --text-main: #f3f4f6;
-    --text-muted: #9ca3af;
+    --accent-primary: #ffffff;
+    --accent-primary-hover: #f4f4f5;
+    --accent-primary-glow: rgba(255, 255, 255, 0.1);
+    --accent-secondary: #a1a1aa;
+    --text-main: #fafafa;
+    --text-muted: #71717a;
     --color-success: #10b981;
-    --color-success-bg: rgba(16, 185, 129, 0.15);
+    --color-success-bg: rgba(16, 185, 129, 0.1);
     --color-error: #ef4444;
-    --color-error-bg: rgba(239, 68, 68, 0.15);
+    --color-error-bg: rgba(239, 68, 68, 0.1);
     --font-main: 'Outfit', sans-serif;
     --font-code: 'Fira Code', monospace;
-    --card-radius: 16px;
-    --transition-speed: 0.3s;
+    --card-radius: 12px;
+    --transition-speed: 0.2s;
 }
 
 * {
@@ -27,8 +27,7 @@
 body {
     background-color: var(--bg-color);
     background-image: 
-        radial-gradient(at 10% 20%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
-        radial-gradient(at 90% 80%, rgba(59, 130, 246, 0.15) 0px, transparent 50%);
+        radial-gradient(at 50% 0%, rgba(255, 255, 255, 0.03) 0px, transparent 50%);
     background-attachment: fixed;
     color: var(--text-main);
     font-family: var(--font-main);
@@ -60,7 +59,8 @@ body {
 .header-title h1 {
     font-size: 1.5rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #fff 30%, #a78bfa 100%);
+    background: linear-gradient(135deg, #fff 30%, var(--accent-secondary) 100%);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
