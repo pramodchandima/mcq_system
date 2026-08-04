@@ -8,9 +8,8 @@ export const Sidebar = (questions, currentIndex, answers) => {
         }
 
         return `
-            <li class="nav-item ${isActive} ${statusClass}" data-index="${index}">
-                <div class="nav-status-icon"></div>
-                <span>Question ${index + 1}</span>
+            <li class="nav-grid-item ${isActive} ${statusClass}" data-index="${index}">
+                <span>${index + 1}</span>
             </li>
         `;
     }).join('');
@@ -18,7 +17,7 @@ export const Sidebar = (questions, currentIndex, answers) => {
     return `
         <div class="sidebar-card">
             <h3>Quiz Progress</h3>
-            <ul class="nav-list" id="sidebar-nav-list">
+            <ul class="nav-grid-list" id="sidebar-nav-list">
                 ${listItemsHTML}
             </ul>
         </div>
