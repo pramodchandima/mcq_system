@@ -1,10 +1,13 @@
 import { store } from '../core/Store.js';
 
 export class LandingScreen {
-    constructor(containerId, quizSets) {
+    constructor(containerId, quizSets, subjects) {
         this.container = document.getElementById(containerId);
         this.quizSets = quizSets;
-        this.handleStartQuiz = this.handleStartQuiz.bind(this);
+        this.subjects = subjects || [];
+        this.selectedSubjectId = null; // null means "all subjects overview"
+
+        this.handleClick = this.handleClick.bind(this);
     }
 
     mount() {
@@ -18,71 +21,190 @@ export class LandingScreen {
     }
 
     unmount() {
-        this.container.removeEventListener('click', this.handleStartQuiz);
+        this.container.removeEventListener('click', this.handleClick);
         if (this.unsubscribe) this.unsubscribe();
         this.container.innerHTML = '';
     }
 
     bindEvents() {
-        this.container.addEventListener('click', this.handleStartQuiz);
+        this.container.addEventListener('click', this.handleClick);
     }
 
-    handleStartQuiz(e) {
-        const btn = e.target.closest('.start-quiz-btn');
-        if (!btn) return;
-
-        const setId = btn.dataset.setId;
-        if (setId) {
-            // Check if there's saved progress to resume, but we actually just reset the current index if starting fresh
-            // or if they had progress, the store handles merging, but we should just set the active set.
-            // If they click start, they go to wherever they left off in that set.
-            const savedState = store.getState();
-            let resumeIndex = 0;
-            if (savedState.answers[setId]) {
-                 // Try to resume from the last unanswered or just go to 0
-                 // Let's keep the existing logic: if they had progress, `currentIndex` was restored by store init,
-                 // but if they switch sets, they start at 0 unless we store currentIndex per set.
-                 // Currently `currentIndex` is global. We will just reset it to 0 when starting a set.
-                 resumeIndex = 0; // Wait, if we want to resume, we might need a more complex logic. 
-                 // Let's just set it to 0 as in original. The user can use sidebar to navigate.
-            }
-            store.setState({ 
-                view: 'quiz', 
-                activeSetId: setId, 
-                currentIndex: 0 
-            });
+    handleClick(e) {
+        // Handle Back button click
+        const backBtn = e.target.closest('.back-to-subjects-btn');
+        if (backBtn) {
+            this.selectedSubjectId = null;
+            this.render();
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
         }
+
+        // Handle Subject tab click
+        const tabBtn = e.target.closest('.subject-tab-btn');
+        if (tabBtn) {
+            const subjectId = tabBtn.dataset.subjectId;
+            this.selectedSubjectId = subjectId === 'all' ? null : subjectId;
+            this.render();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+        }
+
+        // Handle Subject card click
+        const subjectCard = e.target.closest('.subject-card');
+        if (subjectCard && !e.target.closest('.start-quiz-btn')) {
+            const subjectId = subjectCard.dataset.subjectId;
+            if (subjectId) {
+                this.selectedSubjectId = subjectId;
+                this.render();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+        }
+
+        // Handle Start Quiz button click
+        const quizBtn = e.target.closest('.start-quiz-btn');
+        if (quizBtn) {
+            const setId = quizBtn.dataset.setId;
+            if (setId) {
+                store.setState({ 
+                    view: 'quiz', 
+                    activeSetId: setId, 
+                    currentIndex: 0 
+                });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+    }
+
+    renderSubjectOverview() {
+        const subjectCardsHTML = this.subjects.map(subject => {
+            const setNum = this.quizSets.filter(s => s.subjectId === subject.id).length;
+            const badgeText = setNum > 0 ? `${setNum} Quiz ${setNum === 1 ? 'Set' : 'Sets'}` : 'Coming Soon';
+            const isComingSoon = setNum === 0;
+
+            return `
+                <div class="subject-card ${isComingSoon ? 'coming-soon' : ''}" data-subject-id="${subject.id}">
+                    <div class="subject-card-header" style="background: ${subject.bgGradient}">
+                        <div class="subject-card-icon">${subject.icon}</div>
+                        <span class="subject-card-badge" style="background: ${subject.badgeColor}">${badgeText}</span>
+                    </div>
+                    <div class="subject-card-body">
+                        <div class="subject-card-code">${subject.code}</div>
+                        <h3 class="subject-card-title">${subject.title}</h3>
+                        <p class="subject-card-desc">${subject.description}</p>
+                    </div>
+                    <div class="subject-card-footer">
+                        <button class="btn ${isComingSoon ? 'btn-secondary' : 'btn-primary'} select-subject-btn" data-subject-id="${subject.id}">
+                            ${isComingSoon ? 'View Subject Details' : 'Explore Quizzes →'}
+                        </button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        return `
+            <div class="landing-header">
+                <h2>Select a Subject</h2>
+                <p>Choose a subject below to access its practice questions and modules.</p>
+            </div>
+            
+            <div class="subject-cards-grid">
+                ${subjectCardsHTML}
+            </div>
+        `;
+    }
+
+    renderSubjectDetail(subject) {
+        const subjectQuizzes = this.quizSets.filter(s => s.subjectId === subject.id);
+
+        let contentHTML = '';
+        if (subjectQuizzes.length === 0) {
+            contentHTML = `
+                <div class="empty-subject-card">
+                    <div class="empty-icon">${subject.icon}</div>
+                    <h3>Quizzes Coming Soon</h3>
+                    <p>Practice question sets for <strong>${subject.title}</strong> are currently under preparation.</p>
+                    <button class="btn btn-secondary back-to-subjects-btn">← Back to All Subjects</button>
+                </div>
+            `;
+        } else {
+            const quizCardsHTML = subjectQuizzes.map(set => {
+                return `
+                    <div class="quiz-set-card">
+                        <div class="quiz-set-icon">${subject.icon}</div>
+                        <div class="quiz-set-info">
+                            <h3>${set.title}</h3>
+                            <p>${set.description}</p>
+                            <div class="quiz-set-meta">
+                                <span class="meta-badge">${set.questions.length} Questions</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary start-quiz-btn" data-set-id="${set.id}">Start Practice</button>
+                    </div>
+                `;
+            }).join('');
+
+            contentHTML = `
+                <div class="quiz-sets-grid">
+                    ${quizCardsHTML}
+                </div>
+            `;
+        }
+
+        return `
+            <div class="subject-detail-header">
+                <button class="btn btn-secondary btn-small back-to-subjects-btn">
+                    ← Back to All Subjects
+                </button>
+                <div class="subject-title-area">
+                    <span class="subject-title-icon">${subject.icon}</span>
+                    <div>
+                        <h2>${subject.subtitle || subject.title}</h2>
+                        <p>${subject.description}</p>
+                    </div>
+                </div>
+            </div>
+            ${contentHTML}
+        `;
     }
 
     render() {
         if (store.getState().view !== 'landing') return;
 
-        const cardsHTML = this.quizSets.map((set) => {
-            return `
-                <div class="quiz-set-card">
-                    <div class="quiz-set-icon">📚</div>
-                    <div class="quiz-set-info">
-                        <h3>${set.title}</h3>
-                        <p>${set.description}</p>
-                        <div class="quiz-set-meta">
-                            <span class="meta-badge">${set.questions.length} Questions</span>
-                        </div>
-                    </div>
-                    <button class="btn btn-primary start-quiz-btn" data-set-id="${set.id}">Start Practice</button>
-                </div>
-            `;
-        }).join('');
+        // Subject Tabs Navigation
+        const tabsHTML = `
+            <div class="subject-tabs">
+                <button class="subject-tab-btn ${this.selectedSubjectId === null ? 'active' : ''}" data-subject-id="all">
+                    📚 All Subjects
+                </button>
+                ${this.subjects.map(s => {
+                    const setNum = this.quizSets.filter(q => q.subjectId === s.id).length;
+                    return `
+                        <button class="subject-tab-btn ${this.selectedSubjectId === s.id ? 'active' : ''}" data-subject-id="${s.id}">
+                            ${s.icon} ${s.code} ${setNum > 0 ? `(${setNum})` : ''}
+                        </button>
+                    `;
+                }).join('')}
+            </div>
+        `;
+
+        let mainBodyHTML = '';
+        if (this.selectedSubjectId === null) {
+            mainBodyHTML = this.renderSubjectOverview();
+        } else {
+            const subject = this.subjects.find(s => s.id === this.selectedSubjectId);
+            if (subject) {
+                mainBodyHTML = this.renderSubjectDetail(subject);
+            } else {
+                mainBodyHTML = this.renderSubjectOverview();
+            }
+        }
 
         this.container.innerHTML = `
             <div class="landing-container active">
-                <div class="landing-header">
-                    <h2>Available Practice Sets</h2>
-                    <p>Select a topic below to begin your practice session.</p>
-                </div>
-                <div class="quiz-sets-grid">
-                    ${cardsHTML}
-                </div>
+                ${tabsHTML}
+                ${mainBodyHTML}
             </div>
         `;
     }

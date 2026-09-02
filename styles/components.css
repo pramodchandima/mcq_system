@@ -512,6 +512,204 @@
     color: var(--text-muted);
 }
 
+/* Subject Tabs Navigation */
+.subject-tabs {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--surface-border);
+    padding-bottom: 1rem;
+}
+
+.subject-tab-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--surface-border);
+    color: var(--text-muted);
+    padding: 0.6rem 1.25rem;
+    border-radius: 30px;
+    font-family: var(--font-main);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.subject-tab-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-main);
+    transform: translateY(-1px);
+}
+
+.subject-tab-btn.active {
+    background: var(--accent-primary);
+    color: var(--btn-primary-text);
+    border-color: var(--accent-primary);
+    box-shadow: 0 4px 12px var(--accent-primary-glow);
+}
+
+/* Subject Cards Grid */
+.subject-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.subject-card {
+    background: var(--surface-color);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.subject-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+}
+
+.subject-card-header {
+    padding: 1.5rem 1.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.subject-card-icon {
+    font-size: 2.2rem;
+    line-height: 1;
+}
+
+.subject-card-badge {
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.35rem 0.85rem;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.subject-card-body {
+    padding: 1.5rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-grow: 1;
+}
+
+.subject-card-code {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent-secondary);
+    letter-spacing: 0.08em;
+}
+
+.subject-card-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-main);
+    line-height: 1.3;
+}
+
+.subject-card-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.subject-card-footer {
+    padding: 1rem 1.75rem 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.select-subject-btn {
+    width: 100%;
+    justify-content: center;
+}
+
+/* Subject Detail Header & Empty State */
+.subject-detail-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.subject-title-area {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    background: var(--surface-color);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--card-radius);
+    padding: 1.5rem 2rem;
+}
+
+.subject-title-icon {
+    font-size: 2.5rem;
+    line-height: 1;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.75rem;
+    border-radius: 12px;
+    border: 1px solid var(--surface-border);
+}
+
+.subject-title-area h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+.subject-title-area p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+.empty-subject-card {
+    background: var(--surface-color);
+    border: 1px dashed var(--surface-border);
+    border-radius: var(--card-radius);
+    padding: 4rem 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.empty-icon {
+    font-size: 3.5rem;
+    opacity: 0.8;
+}
+
+.empty-subject-card h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.empty-subject-card p {
+    color: var(--text-muted);
+    max-width: 450px;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
 .quiz-sets-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
