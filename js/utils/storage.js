@@ -19,7 +19,3 @@ export const loadProgress = () => {
     }
     return null;
 };
-
-export const clearProgress = () => {
-    localStorage.removeItem(STORAGE_KEY);
-};

@@ -31,12 +31,7 @@ export class ResultScreen {
         if (e.target.id === 'restart-btn') {
             const state = store.getState();
             
-            // If restart, we can just reset answers for this set, or just navigate to index 0. 
-            // In original it just did: `state.currentIndex = 0; state.view = 'quiz'; render();`
-            // Let's reset the answers for the active set as well to restart from scratch, 
-            // wait, no, the original restart button just went to the first question without clearing answers?
-            // Actually, if they want to clear, they click "Reset Progress".
-            // Let's just go to the first question and change view back to quiz.
+            // Restart quiz by resetting index to 0
             store.setState({ 
                 view: 'quiz',
                 currentIndex: 0
