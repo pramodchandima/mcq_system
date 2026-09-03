@@ -15,7 +15,7 @@ import {
     questionsL5 as questions_rad_l5,
     questions as questions_rad_l6
 } from './data/questions.js';
-import { questions_wad_2024, questions_wad_iit_2023, questions_wad_web_services, questions_wad_l1 } from './data/wad_questions.js';
+import { questions_wad_2024, questions_wad_iit_2023, questions_wad_web_services, questions_wad_l1, questions_wad_l2 } from './data/wad_questions.js';
 
 // Subjects List
 export const subjects = [
@@ -105,6 +105,13 @@ export const quizSets = [
         title: 'WAD - L1: Server-Side Scripting',
         description: 'Introduction to Server-side Scripting & PHP Fundamentals',
         questions: questions_wad_l1
+    },
+    {
+        id: 'set-wad-l2',
+        subjectId: 'wad',
+        title: 'WAD - L2: My First Web Application',
+        description: 'HTML Forms, GET/POST Methods, Input Validation, Sanitization, Query Strings & File Handling',
+        questions: questions_wad_l2
     },
     {
         id: 'set-wad-2024',
