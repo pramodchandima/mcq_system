@@ -15,7 +15,7 @@ import {
     questionsL5 as questions_rad_l5,
     questions as questions_rad_l6
 } from './data/questions.js';
-import { questions_wad_2024, questions_wad_iit_2023, questions_wad_web_services, questions_wad_l1, questions_wad_l2 } from './data/wad_questions.js';
+import { questions_wad_2024, questions_wad_iit_2023, questions_wad_web_services, questions_wad_l1, questions_wad_l2, questions_wad_l3, questions_wad_l4, questions_wad_l5, questions_wad_l6 } from './data/wad_questions.js';
 
 // Subjects List
 export const subjects = [
@@ -112,6 +112,34 @@ export const quizSets = [
         title: 'WAD - L2: My First Web Application',
         description: 'HTML Forms, GET/POST Methods, Input Validation, Sanitization, Query Strings & File Handling',
         questions: questions_wad_l2
+    },
+    {
+        id: 'set-wad-l3',
+        subjectId: 'wad',
+        title: 'WAD - L3: Object-Oriented PHP',
+        description: 'OOP Principles, Classes, Encapsulation, Inheritance, Interfaces, Abstract Classes, Polymorphism, Namespaces & Composer',
+        questions: questions_wad_l3
+    },
+    {
+        id: 'set-wad-l4',
+        subjectId: 'wad',
+        title: 'WAD - L4: Working with Databases',
+        description: 'PDO Architecture, DSN Connections, exec() vs query(), ResultSets, Fetching Styles, Prepared Statements & Error Handling',
+        questions: questions_wad_l4
+    },
+    {
+        id: 'set-wad-l5',
+        subjectId: 'wad',
+        title: 'WAD - L5: Personalizing Web Content',
+        description: 'Personalization Concepts, User Authentication, Password Hashing/Verify, Session Lifecycle, Cookies & Remember Me Feature',
+        questions: questions_wad_l5
+    },
+    {
+        id: 'set-wad-l6',
+        subjectId: 'wad',
+        title: 'WAD - L6: Web Services',
+        description: 'Web Services Architecture, SOAP vs REST vs GraphQL, Statelessness, HTTP Verbs (GET/POST/PUT/DELETE), cURL & API Security',
+        questions: questions_wad_l6
     },
     {
         id: 'set-wad-2024',

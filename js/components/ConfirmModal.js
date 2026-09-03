@@ -21,9 +21,6 @@ export class ConfirmModal {
             </div>
         `;
         // Initially hide the modal, it gets shown by adding 'show' class to 'confirm-modal-overlay'
-        // Actually, the original index.html has `.modal-overlay` with id `confirm-modal`. 
-        // We will make the container *be* the modal wrapper, or render inside it.
-        // Let's assume the container is `<div id="modal-container"></div>`
     }
 
     bindEvents() {
@@ -40,10 +37,7 @@ export class ConfirmModal {
             }
         });
 
-        // Listen for custom event or just expose a show method.
-        // For simplicity, we can listen for click events on the document
-        // Or better, let Header.js dispatch a custom event, or since Store is global, 
-        // we can just expose this component to the global scope or listen to a custom window event.
+        // Listen for custom window event to show modal
         window.addEventListener('show-reset-modal', () => {
             this.show();
         });
