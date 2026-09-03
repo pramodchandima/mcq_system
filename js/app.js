@@ -15,7 +15,7 @@ import {
     questionsL5 as questions_rad_l5,
     questions as questions_rad_l6
 } from './data/questions.js';
-import { questions_wad_2024, questions_wad_iit_2023 } from './data/wad_questions.js';
+import { questions_wad_2024, questions_wad_iit_2023, questions_wad_web_services, questions_wad_l1 } from './data/wad_questions.js';
 
 // Subjects List
 export const subjects = [
@@ -100,6 +100,13 @@ export const quizSets = [
         questions: questions_rad_l6
     },
     {
+        id: 'set-wad-l1',
+        subjectId: 'wad',
+        title: 'WAD - L1: Server-Side Scripting',
+        description: 'Introduction to Server-side Scripting & PHP Fundamentals',
+        questions: questions_wad_l1
+    },
+    {
         id: 'set-wad-2024',
         subjectId: 'wad',
         title: 'WAD - Quiz 2024',
@@ -112,6 +119,13 @@ export const quizSets = [
         title: 'WAD - Quiz IIT 2023',
         description: 'Web Application Development Quiz IIT 2023 Practice Set',
         questions: questions_wad_iit_2023
+    },
+    {
+        id: 'set-wad-web-services',
+        subjectId: 'wad',
+        title: 'WAD - Web Services & Security',
+        description: 'WAD Web Services Previous Year Questions (Security, RESTful APIs, PHP Web Services)',
+        questions: questions_wad_web_services
     }
 ];
 
