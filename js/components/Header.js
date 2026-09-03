@@ -25,12 +25,12 @@ export class AppHeader {
                     <p>Master your concepts</p>
                 </div>
                 <div class="header-controls">
-                    <button id="theme-toggle" class="btn btn-secondary btn-small">
+                    <button id="theme-toggle" class="btn btn-secondary btn-small" aria-label="Toggle dark or light theme">
                         ${isLight ? moonIcon : sunIcon}
                     </button>
                     <div class="header-stats" style="display: ${state.view === 'quiz' ? 'flex' : 'none'};">
-                        <button id="home-btn" class="btn btn-secondary btn-small">Home</button>
-                        <button id="reset-btn" class="btn btn-secondary btn-small">Reset Progress</button>
+                        <button id="home-btn" class="btn btn-secondary btn-small" aria-label="Go to home screen">Home</button>
+                        <button id="reset-btn" class="btn btn-secondary btn-small" aria-label="Reset quiz progress">Reset Progress</button>
                         <div class="score-badge" id="global-score-badge">
                             <span>Score:</span> <span class="score-val" id="global-score">0/0</span>
                         </div>
@@ -88,7 +88,7 @@ export class AppHeader {
             const scoreVal = this.container.querySelector('#global-score');
             if (scoreVal) {
                 const activeSet = this.quizSets.find(s => s.id === state.activeSetId);
-                const totalQ = activeSet ? activeSet.questions.length : 0;
+                const totalQ = activeSet ? (activeSet.questionCount || (activeSet.questions ? activeSet.questions.length : 0)) : 0;
                 const score = this.calculateScore(state);
                 scoreVal.textContent = `${score}/${totalQ}`;
             }

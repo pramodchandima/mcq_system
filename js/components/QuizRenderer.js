@@ -244,7 +244,7 @@ export class QuizRenderer {
             const letterLabel = isRoman ? (romanLetters[index] || (index+1)+'.') : (stdLetters[index] || (index+1));
 
             return `
-                <button class="${btnClass}" data-option-index="${index}" ${isAnswered ? 'disabled' : ''}>
+                <button class="${btnClass}" data-option-index="${index}" ${isAnswered ? 'disabled' : ''} aria-label="Option ${letterLabel}">
                     <span class="option-letter">${letterLabel}</span>
                     <span class="option-text">${option}</span>
                 </button>

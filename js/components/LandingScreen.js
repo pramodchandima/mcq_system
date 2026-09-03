@@ -67,12 +67,29 @@ export class LandingScreen {
         if (quizBtn) {
             const setId = quizBtn.dataset.setId;
             if (setId) {
-                store.setState({ 
-                    view: 'quiz', 
-                    activeSetId: setId, 
-                    currentIndex: 0 
-                });
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                const originalText = quizBtn.textContent;
+                quizBtn.textContent = 'Loading...';
+                quizBtn.disabled = true;
+
+                const activeSet = this.quizSets.find(s => s.id === setId);
+
+                (async () => {
+                    try {
+                        if (activeSet && !activeSet.questions && typeof activeSet.fetchQuestions === 'function') {
+                            activeSet.questions = await activeSet.fetchQuestions();
+                        }
+                        store.setState({ 
+                            view: 'quiz', 
+                            activeSetId: setId, 
+                            currentIndex: 0 
+                        });
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } catch (err) {
+                        console.error('Failed to load questions:', err);
+                        quizBtn.textContent = originalText;
+                        quizBtn.disabled = false;
+                    }
+                })();
             }
         }
     }
@@ -137,7 +154,7 @@ export class LandingScreen {
                             <h3>${set.title}</h3>
                             <p>${set.description}</p>
                             <div class="quiz-set-meta">
-                                <span class="meta-badge">${set.questions.length} Questions</span>
+                                <span class="meta-badge">${set.questionCount || (set.questions ? set.questions.length : 0)} Questions</span>
                             </div>
                         </div>
                         <button class="btn btn-primary start-quiz-btn" data-set-id="${set.id}">Start Practice</button>

@@ -66,7 +66,7 @@ export class Sidebar {
             }
 
             return `
-                <li class="nav-grid-item ${isActive} ${statusClass}" data-index="${index}">
+                <li class="nav-grid-item ${isActive} ${statusClass}" data-index="${index}" role="button" tabindex="0" aria-label="Question ${index + 1}">
                     <span>${index + 1}</span>
                 </li>
             `;

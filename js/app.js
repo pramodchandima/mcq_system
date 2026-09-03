@@ -5,18 +5,6 @@ import { Sidebar } from './components/Sidebar.js';
 import { LandingScreen } from './components/LandingScreen.js';
 import { QuizRenderer } from './components/QuizRenderer.js';
 import { ResultScreen } from './components/ResultScreen.js';
-import { 
-    questionsL1 as questions_rad_l1,
-    questionsL2 as questions_rad_l2,
-    questionsL3 as questions_rad_l3,
-    questionsL32 as questions_rad_l3_part2,
-    questionsL4 as questions_rad_l4,
-    questionsL41 as questions_rad_l4_part2,
-    questionsL5 as questions_rad_l5,
-    questions as questions_rad_l6
-} from './data/questions.js';
-import { questions_wad_2024, questions_wad_iit_2023, questions_wad_web_services, questions_wad_l1, questions_wad_l2, questions_wad_l3, questions_wad_l4, questions_wad_l5, questions_wad_l6 } from './data/wad_questions.js';
-
 // Subjects List
 export const subjects = [
     {
@@ -41,126 +29,143 @@ export const subjects = [
     }
 ];
 
-// Aggregate quiz sets
+// Aggregate quiz sets with dynamic question loaders
 export const quizSets = [
     {
         id: 'set-rad-l1',
         subjectId: 'rad',
         title: 'RAD - L1: Introduction',
         description: 'Introduction to Rapid Application Development',
-        questions: questions_rad_l1
+        questionCount: 25,
+        fetchQuestions: async () => (await import('./data/questions.js')).questionsL1
     },
     {
         id: 'set-rad-l2',
         subjectId: 'rad',
         title: 'RAD - L2: SDLC',
         description: 'Software Development Life Cycle',
-        questions: questions_rad_l2
+        questionCount: 25,
+        fetchQuestions: async () => (await import('./data/questions.js')).questionsL2
     },
     {
         id: 'set-rad-l3',
         subjectId: 'rad',
         title: 'RAD - L3: Requirements',
         description: 'Requirements Engineering',
-        questions: questions_rad_l3
+        questionCount: 25,
+        fetchQuestions: async () => (await import('./data/questions.js')).questionsL3
     },
     {
         id: 'set-rad-l3-part2',
         subjectId: 'rad',
         title: 'RAD - L3: Req Eng Part 2',
         description: 'Requirements Elicitation & Analysis',
-        questions: questions_rad_l3_part2
+        questionCount: 25,
+        fetchQuestions: async () => (await import('./data/questions.js')).questionsL32
     },
     {
         id: 'set-rad-l4',
         subjectId: 'rad',
         title: 'RAD - L4: Analysis & Design',
         description: 'System Analysis and Design Concepts',
-        questions: questions_rad_l4
+        questionCount: 25,
+        fetchQuestions: async () => (await import('./data/questions.js')).questionsL4
     },
     {
         id: 'set-rad-l4-part2',
         subjectId: 'rad',
         title: 'RAD - L4: OOAD',
         description: 'Object-Oriented Analysis and Design',
-        questions: questions_rad_l4_part2
+        questionCount: 25,
+        fetchQuestions: async () => (await import('./data/questions.js')).questionsL41
     },
     {
         id: 'set-rad-l5',
         subjectId: 'rad',
         title: 'RAD - L5: Architecture',
         description: 'Software Architecture and Design Patterns',
-        questions: questions_rad_l5
+        questionCount: 25,
+        fetchQuestions: async () => (await import('./data/questions.js')).questionsL5
     },
     {
         id: 'set-rad-l6',
         subjectId: 'rad',
         title: 'RAD - L6: User Interface',
         description: 'UI Design Principles and Best Practices',
-        questions: questions_rad_l6
+        questionCount: 25,
+        fetchQuestions: async () => (await import('./data/questions.js')).questions
     },
     {
         id: 'set-wad-l1',
         subjectId: 'wad',
         title: 'WAD - L1: Server-Side Scripting',
         description: 'Introduction to Server-side Scripting & PHP Fundamentals',
-        questions: questions_wad_l1
+        questionCount: 33,
+        fetchQuestions: async () => (await import('./data/wad_questions.js')).questions_wad_l1
     },
     {
         id: 'set-wad-l2',
         subjectId: 'wad',
         title: 'WAD - L2: My First Web Application',
         description: 'HTML Forms, GET/POST Methods, Input Validation, Sanitization, Query Strings & File Handling',
-        questions: questions_wad_l2
+        questionCount: 34,
+        fetchQuestions: async () => (await import('./data/wad_questions.js')).questions_wad_l2
     },
     {
         id: 'set-wad-l3',
         subjectId: 'wad',
         title: 'WAD - L3: Object-Oriented PHP',
         description: 'OOP Principles, Classes, Encapsulation, Inheritance, Interfaces, Abstract Classes, Polymorphism, Namespaces & Composer',
-        questions: questions_wad_l3
+        questionCount: 34,
+        fetchQuestions: async () => (await import('./data/wad_questions.js')).questions_wad_l3
     },
     {
         id: 'set-wad-l4',
         subjectId: 'wad',
         title: 'WAD - L4: Working with Databases',
         description: 'PDO Architecture, DSN Connections, exec() vs query(), ResultSets, Fetching Styles, Prepared Statements & Error Handling',
-        questions: questions_wad_l4
+        questionCount: 34,
+        fetchQuestions: async () => (await import('./data/wad_questions.js')).questions_wad_l4
     },
     {
         id: 'set-wad-l5',
         subjectId: 'wad',
         title: 'WAD - L5: Personalizing Web Content',
         description: 'Personalization Concepts, User Authentication, Password Hashing/Verify, Session Lifecycle, Cookies & Remember Me Feature',
-        questions: questions_wad_l5
+        questionCount: 34,
+        fetchQuestions: async () => (await import('./data/wad_questions.js')).questions_wad_l5
     },
     {
         id: 'set-wad-l6',
         subjectId: 'wad',
         title: 'WAD - L6: Web Services',
         description: 'Web Services Architecture, SOAP vs REST vs GraphQL, Statelessness, HTTP Verbs (GET/POST/PUT/DELETE), cURL & API Security',
-        questions: questions_wad_l6
+        questionCount: 34,
+        fetchQuestions: async () => (await import('./data/wad_questions.js')).questions_wad_l6
     },
     {
         id: 'set-wad-2024',
         subjectId: 'wad',
         title: 'WAD - Quiz 2024',
         description: 'Web Application Development Quiz 2024 (PHP, Sessions, REST, Files, Databases)',
-        questions: questions_wad_2024
+        questionCount: 25,
+        fetchQuestions: async () => (await import('./data/wad_questions.js')).questions_wad_2024
     },
     {
         id: 'set-wad-iit-2023',
         subjectId: 'wad',
         title: 'WAD - Quiz IIT 2023',
         description: 'Web Application Development Quiz IIT 2023 Practice Set',
-        questions: questions_wad_iit_2023
+        questionCount: 25,
+        fetchQuestions: async () => (await import('./data/wad_questions.js')).questions_wad_iit_2023
     },
     {
         id: 'set-wad-web-services',
         subjectId: 'wad',
         title: 'WAD - Web Services & Security',
         description: 'WAD Web Services Previous Year Questions (Security, RESTful APIs, PHP Web Services)',
-        questions: questions_wad_web_services
+        questionCount: 13,
+        fetchQuestions: async () => (await import('./data/wad_questions.js')).questions_wad_web_services
     }
 ];
 
