@@ -217,3 +217,39 @@ body {
         white-space: nowrap;
     }
 }
+
+/* MCQ Question Table Styles */
+.question-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--surface-border);
+}
+
+.question-table th, 
+.question-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border: 1px solid var(--surface-border);
+}
+
+.question-table th {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+[data-theme="light"] .question-table th {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.question-table td {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .question-table td {
+    background-color: rgba(255, 255, 255, 0.5);
+}

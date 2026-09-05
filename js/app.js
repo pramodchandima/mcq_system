@@ -96,6 +96,22 @@ export const quizSets = [
         fetchQuestions: async () => (await import('./data/questions.js')).questions
     },
     {
+        id: 'set-rad-mid-2023',
+        subjectId: 'rad',
+        title: 'RAD - Mid Quiz 2023',
+        description: 'Rapid Application Development Mid Examination Quiz 2023 (RAD Concepts, Process, Swing & JDBC)',
+        questionCount: 28,
+        fetchQuestions: async () => (await import('./data/questions.js')).questionsMid2023
+    },
+    {
+        id: 'set-rad-mid-2024-cst',
+        subjectId: 'rad',
+        title: 'RAD - Mid Quiz 2024 (CST)',
+        description: 'Rapid Application Development Mid Examination Quiz 2024 CST (Swing, Servlets, JSP, JDBC, Internationalization & Security)',
+        questionCount: 18,
+        fetchQuestions: async () => (await import('./data/questions.js')).questionsMid2024Cst
+    },
+    {
         id: 'set-wad-l1',
         subjectId: 'wad',
         title: 'WAD - L1: Server-Side Scripting',
