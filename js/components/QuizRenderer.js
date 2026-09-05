@@ -131,6 +131,16 @@ export class QuizRenderer {
         }
     }
 
+    escapeHtml(str) {
+        if (!str) return '';
+        return str
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+
     render() {
         const state = store.getState();
         if (state.view !== 'quiz' || !state.activeSetId) return;
@@ -145,7 +155,7 @@ export class QuizRenderer {
 
         // Fill in the blanks question type
         if (question.type === 'fill_in_blanks') {
-            let processedText = question.questionText;
+            let processedText = question.questionText || question.question;
 
             if (question.blanks && Array.isArray(question.blanks)) {
                 question.blanks.forEach((blank, idx) => {
@@ -261,10 +271,18 @@ export class QuizRenderer {
             `;
         }
 
+        const questionTitle = question.questionText || question.question;
+        const codeHTML = question.code ? `
+            <div class="question-code-block">
+                <pre><code>${this.escapeHtml(question.code)}</code></pre>
+            </div>
+        ` : '';
+
         this.container.innerHTML = `
             <div class="quiz-card active">
                 <div class="question-header">
-                    <h2 class="question-title">${question.questionText}</h2>
+                    <h2 class="question-title">${questionTitle}</h2>
+                    ${codeHTML}
                     ${question.resourcePath ? `<img src="${question.resourcePath}" alt="Question Image" class="question-image">` : ''}
                 </div>
                 
