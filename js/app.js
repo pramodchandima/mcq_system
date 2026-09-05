@@ -112,6 +112,14 @@ export const quizSets = [
         fetchQuestions: async () => (await import('./data/questions.js')).questionsMid2024Cst
     },
     {
+        id: 'set-rad-mid-2024-iit',
+        subjectId: 'rad',
+        title: 'RAD - Mid Quiz 2024 (IIT)',
+        description: 'Rapid Application Development Mid Examination Quiz 2024 IIT (Swing JTable, JDBC, JSP, Unit Testing, i18n & Member Login Form)',
+        questionCount: 18,
+        fetchQuestions: async () => (await import('./data/questions.js')).questionsMid2024Iit
+    },
+    {
         id: 'set-wad-l1',
         subjectId: 'wad',
         title: 'WAD - L1: Server-Side Scripting',
