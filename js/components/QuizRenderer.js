@@ -162,22 +162,23 @@ export class QuizRenderer {
                     const userChoice = isAnswered && answerRecord.selectedBlanks ? answerRecord.selectedBlanks[idx] : '';
                     const isBlankCorrect = isAnswered && answerRecord.blankResults ? answerRecord.blankResults[idx] : null;
 
+                    let userChoiceEscaped = this.escapeHtml(userChoice);
                     let selectHTML = '';
                     if (isAnswered) {
                         const badge = isBlankCorrect 
                             ? `<span class="blank-badge correct" title="Correct">✔</span>` 
-                            : `<span class="blank-badge incorrect" title="Incorrect (Correct: ${blank.correctAnswer})">✖</span>`;
+                            : `<span class="blank-badge incorrect" title="Incorrect (Correct: ${this.escapeHtml(blank.correctAnswer)})">✖</span>`;
                         
                         selectHTML = `
                             <span class="inline-blank-container ${isBlankCorrect ? 'is-correct' : 'is-incorrect'}">
                                 <select class="fill-blank-select answered" disabled>
-                                    <option value="${userChoice}">${userChoice || 'Unanswered'}</option>
+                                    <option value="${userChoiceEscaped}">${userChoiceEscaped || 'Unanswered'}</option>
                                 </select>
                                 ${badge}
                             </span>
                         `;
                     } else {
-                        const optionsStr = blank.options.map(opt => `<option value="${opt}">${opt}</option>`).join('');
+                        const optionsStr = blank.options.map(opt => `<option value="${this.escapeHtml(opt)}">${this.escapeHtml(opt)}</option>`).join('');
                         selectHTML = `
                             <span class="inline-blank-container">
                                 <select class="fill-blank-select" data-blank-index="${idx}">
@@ -256,7 +257,7 @@ export class QuizRenderer {
             return `
                 <button class="${btnClass}" data-option-index="${index}" ${isAnswered ? 'disabled' : ''} aria-label="Option ${letterLabel}">
                     <span class="option-letter">${letterLabel}</span>
-                    <span class="option-text">${option}</span>
+                    <span class="option-text">${this.escapeHtml(option)}</span>
                 </button>
             `;
         }).join('');
