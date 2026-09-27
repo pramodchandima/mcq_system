@@ -26,6 +26,16 @@ export const subjects = [
         icon: '🌐',
         badgeColor: '#3b82f6',
         bgGradient: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(14, 165, 233, 0.15))'
+    },
+    {
+        id: 'mad',
+        code: 'MAD',
+        title: 'Mobile Application Development',
+        subtitle: 'MAD (Mobile Application Development)',
+        description: 'Master Mobile Application Development concepts, native apps, cross-platform frameworks, and mobile UI/UX.',
+        icon: '📱',
+        badgeColor: '#10b981',
+        bgGradient: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.15))'
     }
 ];
 
