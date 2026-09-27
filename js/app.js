@@ -36,6 +36,16 @@ export const subjects = [
         icon: '📱',
         badgeColor: '#10b981',
         bgGradient: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.15))'
+    },
+    {
+        id: 'dns',
+        code: 'DNS',
+        title: 'Data and Network Security',
+        subtitle: 'DNS (Data and Network Security)',
+        description: 'Master core concepts of data protection, network security protocols, cryptography, and risk management.',
+        icon: '🛡️',
+        badgeColor: '#f59e0b',
+        bgGradient: 'linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(217, 119, 6, 0.15))'
     }
 ];
 
